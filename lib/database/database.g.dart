@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Trip` (`tripId` INTEGER PRIMARY KEY AUTOINCREMENT, `tripName` TEXT NOT NULL, `startDate` TEXT NOT NULL, `tripDate` INTEGER NOT NULL, `tripBudget` REAL, `tripCurrency` TEXT, `tripIsFinished` INTEGER, `needAssessment` INTEGER NOT NULL, `tripDescription` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `Trip` (`tripId` INTEGER PRIMARY KEY AUTOINCREMENT, `tripName` TEXT NOT NULL, `tripDestination` TEXT NOT NULL, `startDate` TEXT NOT NULL, `tripDate` INTEGER NOT NULL, `tripBudget` REAL, `tripCurrency` TEXT, `tripIsFinished` INTEGER, `needAssessment` INTEGER NOT NULL, `tripDescription` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -110,6 +110,7 @@ class _$TripDAO extends TripDAO {
             (Trip item) => <String, Object?>{
                   'tripId': item.tripId,
                   'tripName': item.tripName,
+                  'tripDestination': item.tripDestination,
                   'startDate': item.startDate,
                   'tripDate': item.tripDate,
                   'tripBudget': item.tripBudget,
@@ -127,6 +128,7 @@ class _$TripDAO extends TripDAO {
             (Trip item) => <String, Object?>{
                   'tripId': item.tripId,
                   'tripName': item.tripName,
+                  'tripDestination': item.tripDestination,
                   'startDate': item.startDate,
                   'tripDate': item.tripDate,
                   'tripBudget': item.tripBudget,
@@ -160,6 +162,7 @@ class _$TripDAO extends TripDAO {
         mapper: (Map<String, Object?> row) => Trip(
             tripId: row['tripId'] as int?,
             tripName: row['tripName'] as String,
+            tripDestination: row['tripDestination'] as String,
             startDate: row['startDate'] as String,
             tripDate: row['tripDate'] as int,
             tripBudget: row['tripBudget'] as double?,
@@ -174,6 +177,7 @@ class _$TripDAO extends TripDAO {
         mapper: (Map<String, Object?> row) => Trip(
             tripId: row['tripId'] as int?,
             tripName: row['tripName'] as String,
+            tripDestination: row['tripDestination'] as String,
             startDate: row['startDate'] as String,
             tripDate: row['tripDate'] as int,
             tripBudget: row['tripBudget'] as double?,
@@ -189,6 +193,7 @@ class _$TripDAO extends TripDAO {
         mapper: (Map<String, Object?> row) => Trip(
             tripId: row['tripId'] as int?,
             tripName: row['tripName'] as String,
+            tripDestination: row['tripDestination'] as String,
             startDate: row['startDate'] as String,
             tripDate: row['tripDate'] as int,
             tripBudget: row['tripBudget'] as double?,

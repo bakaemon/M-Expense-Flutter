@@ -31,6 +31,8 @@ class _EditorState extends State<Editor> {
   String currency = "\$";
   bool isRiskAssessment = false;
   
+  var tripDestinationController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,10 +54,11 @@ class _EditorState extends State<Editor> {
         setState(() {
           if (trip != null) {
             tripNameController.text = trip.tripName;
+            tripDestinationController.text = trip.tripDestination;
             tripBudgetController.text = trip.tripBudget.toString();
             currency = trip.tripCurrency!;
             startDateController.text = trip.startDate;
-            endDateController.text = DateTime.parse(trip.getStartDate)
+            endDateController.text = DateTime.parse(trip.startDate)
                 .add(Duration(days: trip.tripDate))
                 .toString()
                 .split(" ")[0];
@@ -78,6 +81,12 @@ class _EditorState extends State<Editor> {
               "Trip Name",
               hintText: "Enter trip name",
               errorText: "Trip name is required",
+            ),
+            WidgetTools.createTextField(
+              tripDestinationController,
+              "Destination",
+              hintText: "Enter trip destination",
+              errorText: "Trip destination is required",
             ),
             WidgetTools.createTextField(tripBudgetController, "Budget",
                 inputType: TextInputType.number, hintText: "Enter budget"),
@@ -132,6 +141,7 @@ class _EditorState extends State<Editor> {
   Future<bool> createBook() async {
     try {
       var tripName = tripNameController.text;
+      var tripDestination = tripDestinationController.text;
       var tripBudget = double.parse(tripBudgetController.text);
       var tripCurrency = currency;
       var startDate = startDateController.text;
@@ -145,6 +155,7 @@ class _EditorState extends State<Editor> {
       await widget.database.tripDao
           .insertOne(Trip(
               tripName: tripName,
+              tripDestination: tripDestination,
               tripBudget: tripBudget,
               tripCurrency: tripCurrency,
               startDate: startDate,
