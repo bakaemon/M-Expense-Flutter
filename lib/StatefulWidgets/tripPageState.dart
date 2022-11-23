@@ -39,6 +39,8 @@ class _TripListPageState extends State<TripListPage> {
                     ),
                   ).then((value) => setState(() {}))
                 }),
+                // a future builder allow to take snipnet of data that
+                // is waited from future
         body: FutureBuilder<List<Trip>>(
             future: widget.db.tripDao.findAllTrips(),
             builder: (context, snapshot) {
@@ -56,7 +58,7 @@ class _TripListPageState extends State<TripListPage> {
               }
             }));
   }
-
+  // this is method to build the list view as shown
   Widget buildList(BuildContext context, List<Trip> data) {
     List<ListTile> listTiles = data
         .map((Trip trip) => ListTile(

@@ -50,8 +50,11 @@ class _EditorState extends State<Editor> {
     super.initState();
 
     if (widget.tripId > 0) {
+      // this is the method to get trip entity with value by the tripId
       widget.database.tripDao.findTripById(widget.tripId).then((trip) {
         setState(() {
+          // this part is to fill all the input with trip data from database in 
+          // edit mode
           if (trip != null) {
             tripNameController.text = trip.tripName;
             tripDestinationController.text = trip.tripDestination;
@@ -70,6 +73,8 @@ class _EditorState extends State<Editor> {
     }
   }
 
+  // this function is to create form shown in the output
+  // they all have appropriate validation
   Widget createForm() {
     return Form(
         key: formKey,
@@ -197,7 +202,7 @@ class _EditorState extends State<Editor> {
       return false;
     }
   }
-
+  // this is the method to delete the trip
   void deleteTrip() {
     widget.database.tripDao.deleteOne(widget.tripId).then((value) => {
           WidgetTools.showSnackBar(context, "Trip deleted"),
@@ -208,7 +213,8 @@ class _EditorState extends State<Editor> {
               (route) => false)
         });
   }
-
+  // this is the method which display the appbar
+  // only in edit mode, the appbar will show the delete button
   List<Widget> getActions() {
     List<Widget> actions = [];
     if (widget.tripId > 0) {

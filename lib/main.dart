@@ -3,7 +3,7 @@ import 'package:m_expense/StatefulWidgets/tripPageState.dart';
 import 'package:m_expense/database/database.dart';
 
 import 'database/database_helper.dart';
-
+// comment
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp(
